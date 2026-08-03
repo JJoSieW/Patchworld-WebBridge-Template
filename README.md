@@ -1,5 +1,31 @@
 # PatchWorld Web Bridge - Example Template
 
+> **This fork also hosts a contour-melody drawing app** (canvas + piano roll
+> UI in `index.html`/`app.js`/`canvas.js`/`synth.js`/`api.js`/`config.js`,
+> piano samples in `assets/piano/`). It's the static front-end for a
+> separate, **private** research repo that runs the actual generation
+> server (FastAPI + the trained model) — that server is not in this repo and
+> never will be; this repo only ever contains what a browser downloads.
+> See the sections below added for it. Everything above/below this note is
+> the original PatchXR template documentation, kept intact for anyone
+> forking this for a different (non-melody) Web Bridge project.
+>
+> ### Security note
+> `config.js`'s `API_BASE_URL`/`API_KEY` are placeholders in this repo.
+> **Any value shipped in a static site here is world-readable by URL** —
+> GitHub Pages serves every file in this repo over plain HTTP(S), so a real
+> API key committed here is not a secret, no matter what it's called. Once
+> filled in locally for a real deployment, the actual protections are (a) an
+> unguessable tunnel URL (cloudflared/ngrok, not a fixed/guessable hostname)
+> and (b) server-side rate limiting on the FastAPI server — not the key
+> itself. Treat `API_KEY` as basic hygiene/obfuscation (keeps casual
+> scraping out), not access control.
+>
+> ### Attribution
+> The piano samples in `assets/piano/` are rendered from a third-party
+> soundfont (GeneralUser GS) — see [ATTRIBUTION.md](ATTRIBUTION.md) for
+> license and render-settings details.
+
 **[👉 See the Live Example Here!](https://patchxr.github.io/Patchworld-WebBridge-Template/)**
 
 Welcome! This template is designed for PatchWorld players who want to build their own custom web interfaces (Web Bridge) to control or display things inside their PatchWorld worlds. You don't need to be an expert developer to use this!

@@ -1,0 +1,145 @@
+:root {
+  --bg: #12141a;
+  --panel: #1b1e27;
+  --line: #2c303b;
+  --text: #e8e9ee;
+  --muted: #8b90a0;
+  --accent: #5aa9ff;
+  --accent-dim: #2f5c8a;
+  --melody: #5aa9ff;
+  --accomp: #ffb35a;
+  --contour: #7be08a;
+  --warn: #ff6a6a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
+
+header { text-align: center; max-width: 900px; }
+h1 { margin: 0 0 4px; font-size: 1.4rem; }
+.hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+main {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.panel-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.legend { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 2px; }
+.swatch.melody { background: var(--melody); }
+.swatch.accomp { background: var(--accomp); }
+.swatch.contour-line { background: var(--contour); }
+
+canvas {
+  width: 100%;
+  height: 260px;
+  display: block;
+  background: #0e1015;
+  border-radius: 6px;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.canvas-controls {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.warning { color: var(--warn); font-size: 0.85rem; }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group.buttons {
+  flex-direction: row;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.control-label { font-size: 0.8rem; color: var(--muted); }
+
+.condition-selector { display: flex; gap: 8px; }
+
+/* No documented physical panel size / DPI for the PatchWorld WebBrowser
+   block was found in PatchWorld UX.md or API_Reference.md (see the Stage 1
+   continuation report) -- these sizes are a conservative touch-target
+   guess (>=44px, the common mobile/VR-pointer minimum), not measured
+   against an actual panel. Revisit once real device testing is possible. */
+button {
+  background: var(--accent-dim);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 18px;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { background: var(--accent); }
+button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.cond-btn.selected { background: var(--accent); border-color: var(--accent); }
+
+.status {
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.status.error { color: var(--warn); }
+.status.ok { color: var(--contour); }
+
+footer {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: center;
+  max-width: 900px;
+}
+.attribution { margin-top: 6px; opacity: 0.8; }
+.attribution a { color: var(--muted); }
