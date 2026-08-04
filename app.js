@@ -42,7 +42,7 @@ function setStatus(msg, kind) {
 }
 
 function updateGenerateEnabled() {
-  generateBtn.disabled = !(Canvas.hasFullSpan() && selectedCondition !== null);
+  generateBtn.disabled = !(Canvas.hasGuidedSpan() && selectedCondition !== null);
 }
 
 // ---- THE INPUT SEAM ---------------------------------------------------------
@@ -119,14 +119,43 @@ generateBtn.addEventListener("click", () => callGenerate("generate"));
 regenerateBtn.addEventListener("click", () => callGenerate("regenerate"));
 
 // ---- playback ------------------------------------------------------------------
+// Playhead (2026-08-04, chat_notes/2026-08-04_1_*.md): driven by
+// requestAnimationFrame reading Synth.getElapsed() (the Web Audio clock),
+// not setInterval -- a JS timer's drift would be visible over a 10s clip.
+// Lives here, not in canvas.js or synth.js, so neither module needs to know
+// about the other (canvas.js stays Web-Audio-agnostic, synth.js stays DOM-
+// agnostic -- see canvas.js's header comment).
+let playheadRAF = null;
+
+function playheadTick() {
+  const elapsed = Synth.getElapsed();
+  if (elapsed === null) {
+    Canvas.setPlayhead(null);
+    playheadRAF = null;
+    return;
+  }
+  Canvas.setPlayhead(elapsed / CROP_SEC);
+  playheadRAF = requestAnimationFrame(playheadTick);
+}
+
+function stopPlayheadLoop() {
+  if (playheadRAF !== null) {
+    cancelAnimationFrame(playheadRAF);
+    playheadRAF = null;
+  }
+  Canvas.setPlayhead(null);   // reset to start / hide, whether stopped or finished
+}
+
 function play() {
   if (!hasResult) return;
   playBtn.disabled = true;
   stopBtn.disabled = false;
-  Synth.play(() => { playBtn.disabled = false; stopBtn.disabled = true; });
+  Synth.play(() => { playBtn.disabled = false; stopBtn.disabled = true; stopPlayheadLoop(); });
+  playheadRAF = requestAnimationFrame(playheadTick);
 }
 function stop() {
   Synth.stop();
+  stopPlayheadLoop();
   playBtn.disabled = !hasResult;
   stopBtn.disabled = true;
 }
@@ -135,6 +164,9 @@ stopBtn.addEventListener("click", stop);
 
 // ---- startup: ping the server -------------------------------------------------
 updateGenerateEnabled();
+// Exact wording lives in config.js's DRAWING_INSTRUCTIONS so it can be
+// revised for the study without touching code (chat_notes/2026-08-04_1_*.md).
+document.getElementById("drawing-instructions").textContent = DRAWING_INSTRUCTIONS;
 // Label matches whichever curve canvas.js actually renders in drawRoll --
 // see its STUDY_MODE comment for why the two must never both claim to show
 // "contour received" (that curve is intentionally not the conditioning

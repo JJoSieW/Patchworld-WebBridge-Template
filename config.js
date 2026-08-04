@@ -44,3 +44,13 @@ const CROP_SEC = 10.0;              // fixed 10s window, matches the server
 // picture rather than the audio. See
 // chat_notes/2026-07-29_stage1_manipulation_leak_fix_report.md.
 const STUDY_MODE = false;  // true = hide contour_used, false = show contour_used
+
+// ---------------------------------------------------------------------------
+// Drawing instructions (2026-08-04, chat_notes/2026-08-04_1_*.md). Exact
+// wording lives here (not hardcoded in app.js/index.html) so it can be
+// revised for the study without touching code. Shown above the draw canvas,
+// before any drawing. Keep it to one or two sentences.
+// ---------------------------------------------------------------------------
+const DRAWING_INSTRUCTIONS =
+  "Draw a melody contour — the shape of the pitch over time. Draw left to right, " +
+  "from the start line to the end line.";

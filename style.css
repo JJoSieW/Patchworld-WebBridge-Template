@@ -26,13 +26,19 @@ body {
   padding: 16px;
 }
 
-header { text-align: center; max-width: 900px; }
+/* max-width widened 2026-08-04 (chat_notes/2026-08-04_1_*.md) from 900px to
+   1160px to fit the draw/roll canvases' new margin regions (MARGIN_FRAC in
+   canvas.js) at their full on-screen size -- canvas { width: 100% } below
+   means the canvas's HTML width attribute alone wouldn't grow it visually
+   without this. */
+header { text-align: center; max-width: 1160px; }
 h1 { margin: 0 0 4px; font-size: 1.4rem; }
 .hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.drawing-instructions { margin-bottom: 8px; }
 
 main {
   width: 100%;
-  max-width: 900px;
+  max-width: 1160px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -139,7 +145,7 @@ footer {
   color: var(--muted);
   font-size: 0.75rem;
   text-align: center;
-  max-width: 900px;
+  max-width: 1160px;
 }
 .attribution { margin-top: 6px; opacity: 0.8; }
 .attribution a { color: var(--muted); }

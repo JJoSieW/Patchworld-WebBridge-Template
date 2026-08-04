@@ -9,17 +9,22 @@
 <body>
   <header>
     <h1>Draw a melody contour</h1>
-    <p class="hint">Draw a line left-to-right across the box. Higher = higher pitch.
-      Then pick a condition and press Generate.</p>
+    <p class="hint">Higher = higher pitch. Pick a condition and press Generate.</p>
   </header>
 
   <main>
     <section class="panel">
       <div class="panel-label">Your drawing (10s)</div>
-      <canvas id="draw-canvas" width="900" height="260"></canvas>
+      <p id="drawing-instructions" class="hint drawing-instructions"></p>
+      <!-- Widened 2026-08-04 (chat_notes/2026-08-04_1_*.md) to fit a ~11%
+           margin on each side (MARGIN_FRAC in canvas.js -- keep in sync);
+           the middle ~78% is the guided 10s region, unchanged from the old
+           900px width. main/header/footer's max-width in style.css was
+           widened to match. -->
+      <canvas id="draw-canvas" width="1160" height="260"></canvas>
       <div class="canvas-controls">
         <button id="clear-btn" type="button">Clear</button>
-        <span id="span-warning" class="warning" hidden>Draw all the way across, left to right.</span>
+        <span id="span-warning" class="warning" hidden>Please draw from the start line to the end line.</span>
       </div>
     </section>
 
@@ -51,7 +56,7 @@
           <span class="swatch contour-line"></span> <span id="contour-line-label">contour received</span>
         </span>
       </div>
-      <canvas id="roll-canvas" width="900" height="260"></canvas>
+      <canvas id="roll-canvas" width="1160" height="260"></canvas>
     </section>
   </main>
 

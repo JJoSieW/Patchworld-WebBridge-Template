@@ -164,15 +164,16 @@ const Synth = {
   _engine: new PianoSynth(),
   _notes: null,
   _stopTimeout: null,
+  _t0: null,   // AudioContext-time origin of the current playback, or null when stopped
 
   setNotes(notes) { this._notes = notes; },
 
   play(onDone) {
     if (!this._notes) return;
     this.stop();
-    const t0 = this._engine.currentTime + 0.05;
+    this._t0 = this._engine.currentTime + 0.05;
     this._notes.forEach((n) =>
-      this._engine.scheduleNote(n.track, n.pitch, n.start_sec, n.dur_sec, n.velocity, t0));
+      this._engine.scheduleNote(n.track, n.pitch, n.start_sec, n.dur_sec, n.velocity, this._t0));
     this._stopTimeout = setTimeout(() => { this.stop(); if (onDone) onDone(); },
       (CROP_SEC + 0.5) * 1000);
   },
@@ -180,6 +181,21 @@ const Synth = {
   stop() {
     this._engine.stopAll();
     clearTimeout(this._stopTimeout);
+    this._t0 = null;
+  },
+
+  // Elapsed seconds since playback started, clamped to [0, CROP_SEC], or
+  // null when not playing (including the brief window past CROP_SEC before
+  // the stop timeout fires) -- drives the playhead (2026-08-04,
+  // chat_notes/2026-08-04_1_*.md) from the Web Audio clock, not a JS timer:
+  // reads AudioContext.currentTime directly, so it can't accumulate the
+  // drift a setInterval-based clock would show over a 10s clip.
+  getElapsed() {
+    if (this._t0 === null) return null;
+    const e = this._engine.currentTime - this._t0;
+    if (e < 0) return 0;             // during the 50ms lead-in
+    if (e > CROP_SEC) return null;
+    return e;
   },
 };
 
