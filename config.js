@@ -14,7 +14,7 @@
 // server-side rate limiting.
 // ---------------------------------------------------------------------------
 const API_BASE_URL = "https://shops-fragrance-globe-sand.trycloudflare.com";  // e.g. a cloudflared/ngrok https URL
-const API_KEY = "REPLACE_ME";       // must match the server's PATCH_API_KEY
+const API_KEY = "devkey123";       // must match the server's PATCH_API_KEY
 // ---------------------------------------------------------------------------
 
 const CROP_SEC = 10.0;              // fixed 10s window, matches the server
