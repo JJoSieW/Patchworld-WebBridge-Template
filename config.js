@@ -13,7 +13,7 @@
 // mechanism. The actual protections are an unguessable tunnel URL and
 // server-side rate limiting.
 // ---------------------------------------------------------------------------
-const API_BASE_URL = "REPLACE_ME";  // e.g. a cloudflared/ngrok https URL
+const API_BASE_URL = "https://shops-fragrance-globe-sand.trycloudflare.com";  // e.g. a cloudflared/ngrok https URL
 const API_KEY = "REPLACE_ME";       // must match the server's PATCH_API_KEY
 // ---------------------------------------------------------------------------
 
