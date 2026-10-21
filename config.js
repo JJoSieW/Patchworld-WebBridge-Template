@@ -13,8 +13,8 @@
 // mechanism. The actual protections are an unguessable tunnel URL and
 // server-side rate limiting.
 // ---------------------------------------------------------------------------
-const API_BASE_URL = "https://adaptor-grant-contacting-nextel.trycloudflare.com";  // e.g. a cloudflared/ngrok https URL
-const API_KEY = "devkey123";       // must match the server's PATCH_API_KEY
+const API_BASE_URL = "REPLACE_ME";  // e.g. a cloudflared/ngrok https URL
+const API_KEY = "REPLACE_ME";       // must match the server's PATCH_API_KEY
 // ---------------------------------------------------------------------------
 
 const CROP_SEC = 10.0;              // fixed 10s window, matches the server
@@ -52,5 +52,6 @@ const STUDY_MODE = false;  // true = hide contour_used, false = show contour_use
 // before any drawing. Keep it to one or two sentences.
 // ---------------------------------------------------------------------------
 const DRAWING_INSTRUCTIONS =
-  "Draw a melody contour — the shape of the pitch over time. Draw left to right, " +
-  "from the start line to the end line.";
+  "Sketch the shape you'd like the melody to follow — how the pitch rises and falls " +
+  "over time. Draw across from the start line to the end line; there's no right " +
+  "answer, so feel free to experiment.";

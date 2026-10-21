@@ -11,7 +11,9 @@
 > forking this for a different (non-melody) Web Bridge project.
 >
 > ### Security note
-> `config.js`'s `API_BASE_URL`/`API_KEY` are placeholders in this repo.
+> `config.js`'s `API_BASE_URL`/`API_KEY` are placeholders in this repo, and every `git pull`/
+> `checkout`/`reset` restores them — see [LOCAL_DEV_SETUP.md](LOCAL_DEV_SETUP.md) to restore your
+> local values each time, or make it a one-time fix with `git update-index --skip-worktree`.
 > **Any value shipped in a static site here is world-readable by URL** —
 > GitHub Pages serves every file in this repo over plain HTTP(S), so a real
 > API key committed here is not a secret, no matter what it's called. Once
